@@ -1,0 +1,51 @@
+# ============================================================
+# cat_bot.yml | GitHub Actions
+# Запуск CAT_bot кожні 2 години + захист state.json від конфліктів
+# ============================================================
+
+name: CAT_bot
+
+on:
+  schedule:
+    # Кожні 2 години по UTC (Київ = UTC+3 влітку / UTC+2 взимку)
+    # 22:00 UTC суботи = 00:00 Київ неділі → тижневий звіт
+    - cron: '0 */2 * * *'
+  workflow_dispatch:   # дозволяє ручний запуск з інтерфейсу GitHub
+
+jobs:
+  run_bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Завантаження репозиторію
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Встановлення Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Встановлення залежностей (лише requests)
+        run: pip install requests
+
+      - name: Налаштування git-користувача для коміту state.json
+        run: |
+          git config user.email "cat_bot@github.actions"
+          git config user.name "CAT_bot"
+
+      - name: Синхронізація з main перед запуском (уникнення конфліктів)
+        run: git pull origin main --rebase || true
+
+      - name: Запуск бота
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python main.py
+
+      - name: Збереження оновленого state.json у репозиторій
+        run: |
+          git add state.json
+          git diff --staged --quiet || git commit -m "CAT_bot: state update [skip ci]"
+          git push origin main || (git pull origin main --rebase --strategy-option=theirs && git push origin main)
