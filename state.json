@@ -1,15 +1,15 @@
 {
   "season_year": 2026,
-  "last_update": "2026-05-31 21:31",
-  "sat_apple_season": 0.34,
+  "last_update": "2026-05-31 21:41",
+  "sat_apple_season": 0.68,
   "sat_grape_season": 0.0,
   "precip_season": 0.0,
   "sat_apple_week": 0.0,
   "sat_grape_week": 0.0,
   "precip_week": 0.0,
-  "week_number": 2,
+  "week_number": 3,
   "week_start_date": "2026-05-31",
   "frost_count": 0,
   "last_frost_alert": null,
-  "report_sent_week": 1
+  "report_sent_week": 2
 }
