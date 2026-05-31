@@ -72,13 +72,19 @@ def reset_season(state):
 def should_send_weekly_report(state):
     """
     Перевірка чи потрібно надіслати тижневий звіт зараз.
-    Умова: сьогодні неділя І звіт за цей тиждень ще не надсилався.
-    Захист від дублювання: поле report_sent_week зберігає номер тижня.
+    Умови: сьогодні неділя І звіт за цей тиждень не надсилався І
+    тиждень тривав хоча б 5 днів (захист від хибного спрацювання).
     """
     today = date.today()
-    is_sunday      = today.weekday() == 6          # 6 = неділя в Python
-    already_sent   = (state.get("report_sent_week") == state["week_number"])
-    return is_sunday and not already_sent
+    is_sunday    = today.weekday() == 6
+    already_sent = (state.get("report_sent_week") == state["week_number"])
+
+    # Перевірка тривалості тижня — захист від скидання state.json
+    week_start   = date.fromisoformat(state["week_start_date"])
+    days_elapsed = (today - week_start).days
+    week_is_real = days_elapsed >= 5
+
+    return is_sunday and not already_sent and week_is_real
 
 
 def reset_weekly(state):
