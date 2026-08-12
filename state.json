@@ -1,8 +1,8 @@
 {
   "season_year": 2026,
-  "last_update": "2026-08-12 08:57",
-  "sat_apple_season": 767.99,
-  "sat_grape_season": 523.52,
+  "last_update": "2026-08-12 10:48",
+  "sat_apple_season": 769.39,
+  "sat_grape_season": 524.5,
   "precip_season": 33.6,
   "season_daily_stats": [
     {
@@ -221,20 +221,35 @@
       "tmax": 26.1,
       "tday": 22.1,
       "tnight": 16.1
+    },
+    {
+      "date": "2026-08-11",
+      "tmin": 14.3,
+      "tmax": 28.4,
+      "tday": 23.5,
+      "tnight": 17.7
     }
   ],
   "frost_events": [],
-  "sat_apple_period": 3.86,
-  "sat_grape_period": 2.19,
+  "sat_apple_period": 5.26,
+  "sat_grape_period": 3.17,
   "precip_period": 0.0,
   "period_start_date": "2026-08-12",
-  "period_daily_stats": [],
+  "period_daily_stats": [
+    {
+      "date": "2026-08-11",
+      "tmin": 14.3,
+      "tmax": 28.4,
+      "tday": 23.5,
+      "tnight": 17.7
+    }
+  ],
   "period_report_sent_date": "2026-08-12",
   "today_date": "2026-08-12",
-  "today_apple": 4.6833,
-  "today_grape": 2.5999,
+  "today_apple": 6.0833,
+  "today_grape": 3.5832,
   "today_precip": 0.0,
-  "daily_report_sent": "2026-08-11",
+  "daily_report_sent": "2026-08-12",
   "frost_count": 0,
   "last_frost_alert": null
 }
